@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="static/ressources/logoWhite.ico">
+    <title>Projet Power4</title>
+    <link rel="stylesheet" href="static/style.css">
+</head>
+<body>
+    {{template "header"}}
+    <h1>Difficulté Facile</h1>
+    <div class="player-names">
+        <p>Joueur 1 (Rouge) : {{.Player1}}</p>
+        <p>Joueur 2 (Jaune) : {{.Player2}}</p>
+        <p>Score - {{.Player1}}: {{.Player1_Score}} | {{.Player2}}: {{.Player2_Score}}</p>
+    </div>
+    <div id="game-board">
+    </div>
+
+    {{template "footer"}}
+</body>
+</html>

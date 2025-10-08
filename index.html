@@ -8,13 +8,14 @@
     <link rel="stylesheet" href="static/style.css">
 </head>
 <body>
+    {{template "header"}}
     <h1>Bienvenue sur Power 4</h1>
     <div class="instructions">
         <h2>Instructions</h2>
         <p>Pour jouer à Power 4, alignez 4 jetons de la même couleur pour gagner.</p>
     </div>
     <div class="player-form">
-        <form action="/game" method="post">
+        <form action="/normal", action="/easy", action="/hard" method="post">
             <label for="player1">Nom du Joueur 1 (Rouge) :</label>
             <input type="text" id="player1" name="player1" required>
             <br>

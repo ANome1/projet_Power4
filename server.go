@@ -21,7 +21,7 @@ func Player(w http.ResponseWriter, r *http.Request, player *power4.Players) {
 		player.Player2 = r.FormValue("player2")
 		http.Redirect(w, r, "/difficulty", http.StatusSeeOther)
 	}
-	template, err := template.ParseFiles("./page/game.html", "./template/header.html", "./template/footer.html")
+	template, err := template.ParseFiles("./page/normal.html", "./page/easy.html", "./page/hard.html", "./template/header.html", "./template/footer.html")
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -37,7 +37,13 @@ func Difficulty(w http.ResponseWriter, r *http.Request) {
 }
 func main() {
 	var player power4.Players
-	http.HandleFunc("/game", func(w http.ResponseWriter, r *http.Request) {
+	http.HandleFunc("/normal", func(w http.ResponseWriter, r *http.Request) {
+		Player(w, r, &player)
+	})
+	http.HandleFunc("/easy", func(w http.ResponseWriter, r *http.Request) {
+		Player(w, r, &player)
+	})
+	http.HandleFunc("/hard", func(w http.ResponseWriter, r *http.Request) {
 		Player(w, r, &player)
 	})
 	http.HandleFunc("/", Home)
