@@ -1,0 +1,115 @@
+/* Styles spécifiques au popup (complètent static/style.css) */
+
+.popup-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(26, 27, 58, 0.8);
+    backdrop-filter: blur(8px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    padding: 20px;
+}
+
+.popup {
+    width: min(560px, 100%);
+    background: rgba(255, 255, 255, 0.12);
+    backdrop-filter: blur(20px);
+    border-radius: 20px;
+    padding: 32px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+    border: 1px solid rgba(139, 92, 246, 0.2);
+    text-align: center;
+}
+
+.popup-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 20px;
+}
+
+.popup h2 {
+    margin: 0;
+    font-size: 1.5rem;
+    color: #f1f0ff;
+    font-weight: 700;
+}
+
+.popup-desc {
+    color: #c9bcf7;
+    margin: 10px 0 24px;
+    font-size: 1.1rem;
+}
+
+.popup-close {
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(139, 92, 246, 0.2);
+    color: #c9bcf7;
+    font-size: 1.2rem;
+    cursor: pointer;
+    padding: 8px 12px;
+    border-radius: 10px;
+    transition: all 0.2s ease;
+}
+
+.popup-close:hover {
+    color: #f1f0ff;
+    background: rgba(139, 92, 246, 0.2);
+    transform: scale(1.05);
+}
+
+.difficulty-options {
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.difficulty-button {
+    min-width: 160px;
+    padding: 16px 24px;
+    background: linear-gradient(135deg, #8b5cf6, #ff6bcf);
+    color: #ffffff;
+    text-decoration: none;
+    border-radius: 12px;
+    font-weight: 700;
+    font-size: 1rem;
+    box-shadow: 0 8px 25px rgba(139, 92, 246, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: all 0.2s ease;
+}
+
+.difficulty-button:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 15px 40px rgba(139, 92, 246, 0.4);
+    background: linear-gradient(135deg, #a855f7, #ec4899);
+}
+
+@media (max-width: 420px) {
+    .popup {
+        padding: 24px;
+        margin: 16px;
+    }
+    
+    .difficulty-options {
+        flex-direction: column;
+        gap: 12px;
+    }
+    
+    .difficulty-button {
+        width: 100%;
+        min-width: auto;
+    }
+    
+    .popup h2 {
+        font-size: 1.3rem;
+    }
+    
+    .popup-desc {
+        font-size: 1rem;
+    }
+}

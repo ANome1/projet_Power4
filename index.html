@@ -9,11 +9,16 @@
 </head>
 <body>
     {{template "header"}}
-    <h1>Bienvenue sur Power 4</h1>
-    <div class="instructions">
-        <h2>Instructions</h2>
-        <p>Pour jouer à Power 4, alignez 4 jetons de la même couleur pour gagner.</p>
-    </div>
+    <section class="accueil">
+        <h1>Bienvenue sur Power 4</h1>
+        <div class="instructions">
+            <h2>Instructions</h2>
+                <p>Pour jouer à Power 4, alignez 4 jetons de la même couleur pour gagner.</p>
+        </div>
+    </section>
+    <section class="player-names">
+        <h2>Entrez les noms des joueurs</h2>
+    </section>
     <div class="player-form">
         <form action="/normal", action="/easy", action="/hard" method="post">
             <label for="player1">Nom du Joueur 1 (Rouge) :</label>
