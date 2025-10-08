@@ -13,5 +13,18 @@
         <h2>Instructions</h2>
         <p>Pour jouer à Power 4, alignez 4 jetons de la même couleur pour gagner.</p>
     </div>
+    <div class="player-form">
+        <form action="/game" method="post">
+            <label for="player1">Nom du Joueur 1 (Rouge) :</label>
+            <input type="text" id="player1" name="player1" required>
+            <br>
+            <label for="player2">Nom du Joueur 2 (Jaune) :</label>
+            <input type="text" id="player2" name="player2" required>
+            <br>
+            <button type="submit">Commencer le Jeu</button>
+        </form>
+    </div>
+
+    {{template "footer"}}
 </body>
 </html>
