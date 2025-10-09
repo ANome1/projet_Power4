@@ -1,5 +1,9 @@
 /* Styles spécifiques au popup (complètent static/style.css) */
 
+h2 {
+    text-align: center;
+}
+
 .popup-overlay {
     position: fixed;
     inset: 0;
@@ -24,11 +28,11 @@
 }
 
 .popup-header {
-    display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: center; /* Centrer le contenu horizontalement */
     gap: 12px;
     margin-bottom: 20px;
+    text-align: center; /* Centrage du contenu */
 }
 
 .popup h2 {
@@ -36,12 +40,14 @@
     font-size: 1.5rem;
     color: #f1f0ff;
     font-weight: 700;
+    text-align: center;
 }
 
 .popup-desc {
     color: #c9bcf7;
     margin: 10px 0 24px;
     font-size: 1.1rem;
+    text-align: center; /* Centrer le texte de description */
 }
 
 .popup-close {
@@ -81,6 +87,8 @@
     box-shadow: 0 8px 25px rgba(139, 92, 246, 0.3);
     border: 1px solid rgba(255, 255, 255, 0.1);
     transition: all 0.2s ease;
+    cursor: pointer;
+    border: none;
 }
 
 .difficulty-button:hover {

@@ -1,31 +1,44 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
     <link rel="icon" href="/static/ressources/logoWhite.ico" />
-  <title>Choix de la difficulté </title>
-  <link rel="stylesheet" href="/static/style.css" />
-  <link rel="stylesheet" href="/static/popup.css" />
+    <title>Choix de la difficulté</title>
+    <link rel="stylesheet" href="/static/style.css" />
+    <link rel="stylesheet" href="/static/popup.css" />
 </head>
 <body>
-  <div class="popup-overlay" id="diffPop" role="dialog" aria-modal="true" aria-labelledby="diffTitle">
-    <div class="popup" id="popup">
-      <div class="popup-header">
-        <h2 id="diffTitle">Choisissez la difficulté</h2>
-        <button class="popup-close" id="closeBtn" aria-label="Fermer">✕</button>
-      </div>
+    {{template "header"}}
+    
+    <div class="popup-overlay" id="diffPop" role="dialog" aria-modal="true" aria-labelledby="diffTitle">
+        <div class="popup" id="popup">
+            <div class="popup-header">
+                <h2 id="diffTitle">Choisissez la difficulté</h2>
+            </div>
 
-      <p class="popup-desc">Sélectionnez une difficulté pour démarrer la partie.</p>
+            <p class="popup-desc">Sélectionnez une difficulté pour démarrer la partie.</p>
 
-      <div class="difficulty-options">
-        <a href="/easy" class="difficulty-button" data-diff="easy">Facile 6 x 7</a>
-        <a href="/normal" class="difficulty-button" data-diff="normal">Normale 6 x 9</a>
-        <a href="/hard" class="difficulty-button" data-diff="hard">Difficile 7 x 8</a>
-      </div>
+            <div class="difficulty-options">
+                <form action="/difficulty" method="post" style="display: inline;">
+                    <input type="hidden" name="level" value="easy">
+                    <button type="submit" class="difficulty-button">Easy</button>
+                </form>
+
+                <form action="/difficulty" method="post" style="display: inline;">
+                    <input type="hidden" name="level" value="normal">
+                    <button type="submit" class="difficulty-button">Normal</button>
+                </form>
+
+                <form action="/difficulty" method="post" style="display: inline;">
+                    <input type="hidden" name="level" value="hard">
+                    <button type="submit" class="difficulty-button">Hard</button>
+                </form>
+            </div>
+        </div>
     </div>
-  </div>
 
-  <script src="/static/script/popup.js"></script>
+    {{template "footer"}}
+    <script src="/static/script/popup.js"></script>
 </body>
 </html>

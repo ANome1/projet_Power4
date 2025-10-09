@@ -1,0 +1,16 @@
+/* Grille 6x7 pour difficulté normale */
+.grid-6x7 {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr); /* 7 colonnes */
+    grid-template-rows: repeat(6, 1fr);    /* 6 lignes */
+    gap: 8px;
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.08);
+    border-radius: 20px;
+    border: 2px solid rgba(139, 92, 246, 0.2);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 14px 40px rgba(0, 0, 0, 0.3);
+    width: 100%;
+    max-width: 720px;
+    aspect-ratio: 9/6;
+}

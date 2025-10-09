@@ -386,6 +386,37 @@ h1 {
     font-size: 2.2rem;
 }
 
+/* Bouton de changement de difficulté */
+.change-difficulty {
+    display: flex;
+    justify-content: center;
+    margin: 20px 0;
+}
+
+.change-difficulty-button {
+    padding: 12px 20px;
+    background: linear-gradient(90deg, var(--accent), var(--accent-2));
+    color: #ffffff;
+    border: none;
+    border-radius: 10px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-shadow: 0 4px 15px rgba(139, 92, 246, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.change-difficulty-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(139, 92, 246, 0.4);
+    background: linear-gradient(90deg, #a855f7, #ec4899);
+}
+
+.change-difficulty-button:active {
+    transform: translateY(0);
+}
+
 /* Responsive Design */
 @media (max-width: 900px) {
     #game-board {

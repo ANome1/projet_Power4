@@ -6,11 +6,12 @@
     <link rel="icon" href="static/ressources/logoWhite.ico">
     <title>Projet Power4 - Normal</title>
     <link rel="stylesheet" href="static/style.css">
+    <link rel="stylesheet" href="static/normal.css">
 </head>
 <body>
     {{template "header"}}
     
-    <h1>Difficulté Normale</h1>
+    <h1>Normal</h1>
     
     <div class="player-names">
         <p>Joueur 1 (Rouge) : {{.Player1}}</p>
@@ -18,9 +19,15 @@
         <p>Score - {{.Player1}}: {{.Player1_Score}} | {{.Player2}}: {{.Player2_Score}}</p>
     </div>
     
+    <div class="change-difficulty">
+        <form action="/difficulty" method="get">
+            <button type="submit" class="change-difficulty-button">Changer la difficulté</button>
+        </form>
+    </div>
+    
     <div class="game-container">
         <div id="game-board" class="grid-6x9">
-            <!-- Ligne 1 -->
+            <!-- Ligne 1 (9 colonnes) -->
             <div class="cell" data-row="0" data-col="0"></div>
             <div class="cell" data-row="0" data-col="1"></div>
             <div class="cell" data-row="0" data-col="2"></div>
