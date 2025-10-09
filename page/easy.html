@@ -4,20 +4,84 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" href="static/ressources/logoWhite.ico">
-    <title>Projet Power4</title>
+    <title>Projet Power4 - Facile</title>
     <link rel="stylesheet" href="static/style.css">
 </head>
 <body>
     {{template "header"}}
+    
     <h1>Difficulté Facile</h1>
+    
     <div class="player-names">
         <p>Joueur 1 (Rouge) : {{.Player1}}</p>
         <p>Joueur 2 (Jaune) : {{.Player2}}</p>
         <p>Score - {{.Player1}}: {{.Player1_Score}} | {{.Player2}}: {{.Player2_Score}}</p>
     </div>
-    <div id="game-board">
+    
+    <div class="game-container">
+        <div id="game-board" class="grid-6x7">
+            <!-- Ligne 1 -->
+            <div class="cell" data-row="0" data-col="0"></div>
+            <div class="cell" data-row="0" data-col="1"></div>
+            <div class="cell" data-row="0" data-col="2"></div>
+            <div class="cell" data-row="0" data-col="3"></div>
+            <div class="cell" data-row="0" data-col="4"></div>
+            <div class="cell" data-row="0" data-col="5"></div>
+            <div class="cell" data-row="0" data-col="6"></div>
+            
+            <!-- Ligne 2 -->
+            <div class="cell" data-row="1" data-col="0"></div>
+            <div class="cell" data-row="1" data-col="1"></div>
+            <div class="cell" data-row="1" data-col="2"></div>
+            <div class="cell" data-row="1" data-col="3"></div>
+            <div class="cell" data-row="1" data-col="4"></div>
+            <div class="cell" data-row="1" data-col="5"></div>
+            <div class="cell" data-row="1" data-col="6"></div>
+            
+            <!-- Ligne 3 -->
+            <div class="cell" data-row="2" data-col="0"></div>
+            <div class="cell" data-row="2" data-col="1"></div>
+            <div class="cell" data-row="2" data-col="2"></div>
+            <div class="cell" data-row="2" data-col="3"></div>
+            <div class="cell" data-row="2" data-col="4"></div>
+            <div class="cell" data-row="2" data-col="5"></div>
+            <div class="cell" data-row="2" data-col="6"></div>
+            
+            <!-- Ligne 4 -->
+            <div class="cell" data-row="3" data-col="0"></div>
+            <div class="cell" data-row="3" data-col="1"></div>
+            <div class="cell" data-row="3" data-col="2"></div>
+            <div class="cell" data-row="3" data-col="3"></div>
+            <div class="cell" data-row="3" data-col="4"></div>
+            <div class="cell" data-row="3" data-col="5"></div>
+            <div class="cell" data-row="3" data-col="6"></div>
+            
+            <!-- Ligne 5 -->
+            <div class="cell" data-row="4" data-col="0"></div>
+            <div class="cell" data-row="4" data-col="1"></div>
+            <div class="cell" data-row="4" data-col="2"></div>
+            <div class="cell" data-row="4" data-col="3"></div>
+            <div class="cell" data-row="4" data-col="4"></div>
+            <div class="cell" data-row="4" data-col="5"></div>
+            <div class="cell" data-row="4" data-col="6"></div>
+            
+            <!-- Ligne 6 -->
+            <div class="cell" data-row="5" data-col="0"></div>
+            <div class="cell" data-row="5" data-col="1"></div>
+            <div class="cell" data-row="5" data-col="2"></div>
+            <div class="cell" data-row="5" data-col="3"></div>
+            <div class="cell" data-row="5" data-col="4"></div>
+            <div class="cell" data-row="5" data-col="5"></div>
+            <div class="cell" data-row="5" data-col="6"></div>
+        </div>
+        
+        <div class="game-controls">
+            <button id="reset-game" class="control-button">Nouvelle Partie</button>
+        </div>
     </div>
 
     {{template "footer"}}
+    
+    <script src="static/script/game.js"></script>
 </body>
 </html>

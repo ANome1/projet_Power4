@@ -6,3 +6,8 @@ type Players struct {
 	Player1_Score int
 	Player2_Score int
 }
+
+type Grid struct {
+	Columns int
+	Rows    int
+}
