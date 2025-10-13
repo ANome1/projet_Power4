@@ -23,7 +23,6 @@ func Player(w http.ResponseWriter, r *http.Request, player *power4.Players) {
 		return
 	}
 
-	// Déterminer quelle page afficher selon l'URL
 	var templateFile string
 	switch r.URL.Path {
 	case "/easy":
@@ -46,23 +45,25 @@ func Player(w http.ResponseWriter, r *http.Request, player *power4.Players) {
 func Difficulty(w http.ResponseWriter, r *http.Request, player *power4.Players) {
 	if r.Method == "POST" {
 		level := r.FormValue("level")
-
-		// Ajouter un log pour déboguer
 		log.Printf("Level received: '%s'", level)
 
-		// Rediriger vers la page appropriée selon la difficulté choisie
+		// Set the difficulty
+		player.Difficulty = level
+
+		// Create a new game with the players
+		game := power4.NewGame(player)
+
+		// TODO: Store game in session or global map
+		log.Printf("Game created: %+v", game)
+
 		switch level {
 		case "easy":
-			log.Println("Redirecting to /easy")
 			http.Redirect(w, r, "/easy", http.StatusSeeOther)
 		case "normal":
-			log.Println("Redirecting to /normal")
 			http.Redirect(w, r, "/normal", http.StatusSeeOther)
 		case "hard":
-			log.Println("Redirecting to /hard")
 			http.Redirect(w, r, "/hard", http.StatusSeeOther)
 		default:
-			log.Printf("Unknown level: '%s', redirecting to normal", level)
 			http.Redirect(w, r, "/normal", http.StatusSeeOther)
 		}
 		return
@@ -91,6 +92,7 @@ func main() {
 	http.HandleFunc("/difficulty", func(w http.ResponseWriter, r *http.Request) {
 		Difficulty(w, r, &player)
 	})
+
 	fs := http.FileServer(http.Dir("static/"))
 	http.Handle("/static/", http.StripPrefix("/static/", fs))
 	http.ListenAndServe(":8080", nil)
