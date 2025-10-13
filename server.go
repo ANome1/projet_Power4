@@ -4,8 +4,12 @@ import (
 	"log"
 	"net/http"
 	power4 "power4/src"
+	"strconv"
 	"text/template"
 )
+
+// Variable globale pour stocker le jeu en cours
+var currentGame *power4.Game
 
 func Home(w http.ResponseWriter, r *http.Request) {
 	template, err := template.ParseFiles("./index.html", "./template/header.html", "./template/footer.html")
@@ -39,7 +43,28 @@ func Player(w http.ResponseWriter, r *http.Request, player *power4.Players) {
 	if err != nil {
 		log.Fatal(err)
 	}
-	template.Execute(w, player)
+
+	// Passer les données du jeu au template
+	if currentGame != nil {
+		data := struct {
+			Player1       string
+			Player2       string
+			Player1_Score int
+			Player2_Score int
+			CurrentTurn   string
+			Grid          [][]string
+		}{
+			Player1:       currentGame.Players.Player1,
+			Player2:       currentGame.Players.Player2,
+			Player1_Score: currentGame.Players.Player1_Score,
+			Player2_Score: currentGame.Players.Player2_Score,
+			CurrentTurn:   currentGame.Turn,
+			Grid:          currentGame.Grid,
+		}
+		template.Execute(w, data)
+	} else {
+		template.Execute(w, player)
+	}
 }
 
 func Difficulty(w http.ResponseWriter, r *http.Request, player *power4.Players) {
@@ -51,10 +76,9 @@ func Difficulty(w http.ResponseWriter, r *http.Request, player *power4.Players) 
 		player.Difficulty = level
 
 		// Create a new game with the players
-		game := power4.NewGame(player)
+		currentGame = power4.NewGame(player)
 
-		// TODO: Store game in session or global map
-		log.Printf("Game created: %+v", game)
+		log.Printf("Game created: %+v", currentGame)
 
 		switch level {
 		case "easy":
@@ -77,8 +101,62 @@ func Difficulty(w http.ResponseWriter, r *http.Request, player *power4.Players) 
 	template.Execute(w, nil)
 }
 
+// PlaceTokenHandler gère le placement des jetons
+func PlaceTokenHandler(w http.ResponseWriter, r *http.Request) {
+	if r.Method != "POST" {
+		http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
+		return
+	}
+
+	if currentGame == nil {
+		log.Println("ERROR: No game in progress")
+		http.Redirect(w, r, "/", http.StatusSeeOther)
+		return
+	}
+
+	colStr := r.FormValue("col")
+	col, err := strconv.Atoi(colStr)
+	if err != nil {
+		log.Printf("ERROR: Invalid column: %s", colStr)
+		http.Error(w, "Invalid column", http.StatusBadRequest)
+		return
+	}
+
+	log.Printf("Placing token in column %d", col)
+
+	// Placer le jeton
+	color := currentGame.GetCurrentPlayerColor()
+	log.Printf("Current player: %s, color: %s", currentGame.Turn, color)
+
+	success := currentGame.PlaceToken(col, color)
+
+	if !success {
+		log.Println("ERROR: Column full or invalid")
+		// Rediriger quand même vers la page du jeu
+		redirectPath := "/" + currentGame.Players.Difficulty
+		http.Redirect(w, r, redirectPath, http.StatusSeeOther)
+		return
+	}
+
+	log.Println("Token placed successfully")
+
+	// Changer de joueur
+	currentGame.SwitchTurn()
+	log.Printf("Next turn: %s", currentGame.Turn)
+
+	// Rediriger vers la page de jeu appropriée
+	redirectPath := "/" + currentGame.Players.Difficulty
+	log.Printf("Redirecting to %s", redirectPath)
+	http.Redirect(w, r, redirectPath, http.StatusSeeOther)
+}
+
 func main() {
 	var player power4.Players
+
+	http.HandleFunc("/", Home)
+	http.HandleFunc("/difficulty", func(w http.ResponseWriter, r *http.Request) {
+		Difficulty(w, r, &player)
+	})
 	http.HandleFunc("/normal", func(w http.ResponseWriter, r *http.Request) {
 		Player(w, r, &player)
 	})
@@ -88,12 +166,11 @@ func main() {
 	http.HandleFunc("/hard", func(w http.ResponseWriter, r *http.Request) {
 		Player(w, r, &player)
 	})
-	http.HandleFunc("/", Home)
-	http.HandleFunc("/difficulty", func(w http.ResponseWriter, r *http.Request) {
-		Difficulty(w, r, &player)
-	})
+	http.HandleFunc("/place-token", PlaceTokenHandler)
 
 	fs := http.FileServer(http.Dir("static/"))
 	http.Handle("/static/", http.StripPrefix("/static/", fs))
+
+	log.Println("Server started on :8080")
 	http.ListenAndServe(":8080", nil)
 }

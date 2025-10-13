@@ -27,71 +27,15 @@
     
     <div class="game-container">
         <div id="game-board" class="grid-6x9">
-            <!-- Ligne 1 (9 colonnes) -->
-            <div class="cell" data-row="0" data-col="0"></div>
-            <div class="cell" data-row="0" data-col="1"></div>
-            <div class="cell" data-row="0" data-col="2"></div>
-            <div class="cell" data-row="0" data-col="3"></div>
-            <div class="cell" data-row="0" data-col="4"></div>
-            <div class="cell" data-row="0" data-col="5"></div>
-            <div class="cell" data-row="0" data-col="6"></div>
-            <div class="cell" data-row="0" data-col="7"></div>
-            <div class="cell" data-row="0" data-col="8"></div>
-            
-            <!-- Ligne 2 -->
-            <div class="cell" data-row="1" data-col="0"></div>
-            <div class="cell" data-row="1" data-col="1"></div>
-            <div class="cell" data-row="1" data-col="2"></div>
-            <div class="cell" data-row="1" data-col="3"></div>
-            <div class="cell" data-row="1" data-col="4"></div>
-            <div class="cell" data-row="1" data-col="5"></div>
-            <div class="cell" data-row="1" data-col="6"></div>
-            <div class="cell" data-row="1" data-col="7"></div>
-            <div class="cell" data-row="1" data-col="8"></div>
-            
-            <!-- Ligne 3 -->
-            <div class="cell" data-row="2" data-col="0"></div>
-            <div class="cell" data-row="2" data-col="1"></div>
-            <div class="cell" data-row="2" data-col="2"></div>
-            <div class="cell" data-row="2" data-col="3"></div>
-            <div class="cell" data-row="2" data-col="4"></div>
-            <div class="cell" data-row="2" data-col="5"></div>
-            <div class="cell" data-row="2" data-col="6"></div>
-            <div class="cell" data-row="2" data-col="7"></div>
-            <div class="cell" data-row="2" data-col="8"></div>
-            
-            <!-- Ligne 4 -->
-            <div class="cell" data-row="3" data-col="0"></div>
-            <div class="cell" data-row="3" data-col="1"></div>
-            <div class="cell" data-row="3" data-col="2"></div>
-            <div class="cell" data-row="3" data-col="3"></div>
-            <div class="cell" data-row="3" data-col="4"></div>
-            <div class="cell" data-row="3" data-col="5"></div>
-            <div class="cell" data-row="3" data-col="6"></div>
-            <div class="cell" data-row="3" data-col="7"></div>
-            <div class="cell" data-row="3" data-col="8"></div>
-            
-            <!-- Ligne 5 -->
-            <div class="cell" data-row="4" data-col="0"></div>
-            <div class="cell" data-row="4" data-col="1"></div>
-            <div class="cell" data-row="4" data-col="2"></div>
-            <div class="cell" data-row="4" data-col="3"></div>
-            <div class="cell" data-row="4" data-col="4"></div>
-            <div class="cell" data-row="4" data-col="5"></div>
-            <div class="cell" data-row="4" data-col="6"></div>
-            <div class="cell" data-row="4" data-col="7"></div>
-            <div class="cell" data-row="4" data-col="8"></div>
-            
-            <!-- Ligne 6 -->
-            <div class="cell" data-row="5" data-col="0"></div>
-            <div class="cell" data-row="5" data-col="1"></div>
-            <div class="cell" data-row="5" data-col="2"></div>
-            <div class="cell" data-row="5" data-col="3"></div>
-            <div class="cell" data-row="5" data-col="4"></div>
-            <div class="cell" data-row="5" data-col="5"></div>
-            <div class="cell" data-row="5" data-col="6"></div>
-            <div class="cell" data-row="5" data-col="7"></div>
-            <div class="cell" data-row="5" data-col="8"></div>
+            {{range $rowIndex, $row := .Grid}}
+                {{range $colIndex, $cell := $row}}
+                    <div class="cell {{$cell}}" 
+                         data-row="{{$rowIndex}}" 
+                         data-col="{{$colIndex}}"
+                         onclick="placeToken({$colIndex})">
+                    </div>
+                {{end}}
+            {{end}}
         </div>
     </div>
 

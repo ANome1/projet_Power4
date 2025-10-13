@@ -16,76 +16,32 @@
     <div class="player-names">
         <p>Joueur 1 (Rouge) : {{.Player1}}</p>
         <p>Joueur 2 (Jaune) : {{.Player2}}</p>
-        <p>Score - {{.Player1}}: {{.Player1_Score}} | {{.Player2}}: {{.Player2_Score}}</p>
+        <p><strong>Tour de: {{.CurrentTurn}}</strong></p>
     </div>
 
-     <div class="change-difficulty">
+    <div class="change-difficulty">
         <form action="/difficulty" method="get">
             <button type="submit" class="change-difficulty-button">Changer la difficulté</button>
         </form>
     </div>
     
+    
     <div class="game-container">
         <div id="game-board" class="grid-6x7">
-            <!-- Ligne 1 -->
-            <div class="cell" data-row="0" data-col="0"></div>
-            <div class="cell" data-row="0" data-col="1"></div>
-            <div class="cell" data-row="0" data-col="2"></div>
-            <div class="cell" data-row="0" data-col="3"></div>
-            <div class="cell" data-row="0" data-col="4"></div>
-            <div class="cell" data-row="0" data-col="5"></div>
-            <div class="cell" data-row="0" data-col="6"></div>
-            
-            <!-- Ligne 2 -->
-            <div class="cell" data-row="1" data-col="0"></div>
-            <div class="cell" data-row="1" data-col="1"></div>
-            <div class="cell" data-row="1" data-col="2"></div>
-            <div class="cell" data-row="1" data-col="3"></div>
-            <div class="cell" data-row="1" data-col="4"></div>
-            <div class="cell" data-row="1" data-col="5"></div>
-            <div class="cell" data-row="1" data-col="6"></div>
-            
-            <!-- Ligne 3 -->
-            <div class="cell" data-row="2" data-col="0"></div>
-            <div class="cell" data-row="2" data-col="1"></div>
-            <div class="cell" data-row="2" data-col="2"></div>
-            <div class="cell" data-row="2" data-col="3"></div>
-            <div class="cell" data-row="2" data-col="4"></div>
-            <div class="cell" data-row="2" data-col="5"></div>
-            <div class="cell" data-row="2" data-col="6"></div>
-            
-            <!-- Ligne 4 -->
-            <div class="cell" data-row="3" data-col="0"></div>
-            <div class="cell" data-row="3" data-col="1"></div>
-            <div class="cell" data-row="3" data-col="2"></div>
-            <div class="cell" data-row="3" data-col="3"></div>
-            <div class="cell" data-row="3" data-col="4"></div>
-            <div class="cell" data-row="3" data-col="5"></div>
-            <div class="cell" data-row="3" data-col="6"></div>
-
-            <!-- Ligne 5 -->
-            <div class="cell" data-row="4" data-col="0"></div>
-            <div class="cell" data-row="4" data-col="1"></div>
-            <div class="cell" data-row="4" data-col="2"></div>
-            <div class="cell" data-row="4" data-col="3"></div>
-            <div class="cell" data-row="4" data-col="4"></div>
-            <div class="cell" data-row="4" data-col="5"></div>
-            <div class="cell" data-row="4" data-col="6"></div>
-
-            <!-- Ligne 6 -->
-            <div class="cell" data-row="5" data-col="0"></div>
-            <div class="cell" data-row="5" data-col="1"></div>
-            <div class="cell" data-row="5" data-col="2"></div>
-            <div class="cell" data-row="5" data-col="3"></div>
-            <div class="cell" data-row="5" data-col="4"></div>
-            <div class="cell" data-row="5" data-col="5"></div>
-            <div class="cell" data-row="5" data-col="6"></div>    
+            {{range $rowIndex, $row := .Grid}}
+                {{range $colIndex, $cell := $row}}
+                    <form action="/place-token" method="POST" style="display: inline;">
+                        <input type="hidden" name="col" value="{{$colIndex}}">
+                        <button type="submit" class="cell {{if eq $cell "red"}}red{{else if eq $cell "yellow"}}yellow{{end}}" 
+                                data-row="{{$rowIndex}}" 
+                                data-col="{{$colIndex}}">
+                        </button>
+                    </form>
+                {{end}}
+            {{end}}
         </div>
-
     </div>
 
     {{template "footer"}}
-    
-    <script src="static/script/game.js"></script>
 </body>
 </html>
