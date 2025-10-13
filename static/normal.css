@@ -1,18 +1,16 @@
 /* Grille 6x9 pour difficulté normale */
 .grid-6x9 {
     display: grid;
-    grid-template-columns: repeat(9, 1fr); /* 9 colonnes */
-    grid-template-rows: repeat(6, 1fr);    /* 6 lignes */
-    gap: 8px;
-    padding: 20px;
+    grid-template-columns: repeat(9, 80px);
+    grid-template-rows: repeat(6, 80px);
+    gap: 10px;
+    padding: 25px;
     background: rgba(255, 255, 255, 0.08);
-    border-radius: 20px;
-    border: 2px solid rgba(139, 92, 246, 0.2);
-    backdrop-filter: blur(10px);
-    box-shadow: 0 14px 40px rgba(0, 0, 0, 0.3);
-    width: 100%;
-    max-width: 720px;
-    aspect-ratio: 9/6;
+    border-radius: 15px;
+    border: 3px solid #5b21b6;
+    box-shadow: 
+        0 10px 30px rgba(0, 0, 0, 0.5),
+        inset 0 2px 10px rgba(0, 0, 0, 0.3);
 }
 
 .cell {
