@@ -29,11 +29,13 @@
         <div id="game-board" class="grid-6x9">
             {{range $rowIndex, $row := .Grid}}
                 {{range $colIndex, $cell := $row}}
-                    <div class="cell {{$cell}}" 
-                         data-row="{{$rowIndex}}" 
-                         data-col="{{$colIndex}}"
-                         onclick="placeToken({$colIndex})">
-                    </div>
+                    <form action="/place-token" method="POST" style="display: inline;">
+                        <input type="hidden" name="col" value="{{$colIndex}}">
+                        <button type="submit" class="cell {{if eq $cell "red"}}red{{else if eq $cell "yellow"}}yellow{{end}}" 
+                                data-row="{{$rowIndex}}" 
+                                data-col="{{$colIndex}}">
+                        </button>
+                    </form>
                 {{end}}
             {{end}}
         </div>
@@ -41,6 +43,6 @@
 
     {{template "footer"}}
     
-    <script src="static/script/game.js"></script>
+    <script src="static/script/script.js"></script>
 </body>
 </html>
