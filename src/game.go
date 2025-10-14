@@ -82,3 +82,60 @@ func (g *Game) SwitchTurn() {
 		g.Turn = g.Players.Player1
 	}
 }
+
+// WinCond vérifie si un joueur a gagné
+// Retourne la couleur du gagnant ("red", "yellow") ou "" si pas de gagnant
+func (g *Game) WinCond() string {
+	rows := len(g.Grid)
+	cols := len(g.Grid[0])
+
+	// Vérifier les lignes horizontales
+	for row := 0; row < rows; row++ {
+		for col := 0; col <= cols-4; col++ {
+			if g.Grid[row][col] != "" &&
+				g.Grid[row][col] == g.Grid[row][col+1] &&
+				g.Grid[row][col] == g.Grid[row][col+2] &&
+				g.Grid[row][col] == g.Grid[row][col+3] {
+				return g.Grid[row][col]
+			}
+		}
+	}
+
+	// Vérifier les colonnes verticales
+	for col := 0; col < cols; col++ {
+		for row := 0; row <= rows-4; row++ {
+			if g.Grid[row][col] != "" &&
+				g.Grid[row][col] == g.Grid[row+1][col] &&
+				g.Grid[row][col] == g.Grid[row+2][col] &&
+				g.Grid[row][col] == g.Grid[row+3][col] {
+				return g.Grid[row][col]
+			}
+		}
+	}
+
+	// Vérifier les diagonales descendantes (\)
+	for row := 0; row <= rows-4; row++ {
+		for col := 0; col <= cols-4; col++ {
+			if g.Grid[row][col] != "" &&
+				g.Grid[row][col] == g.Grid[row+1][col+1] &&
+				g.Grid[row][col] == g.Grid[row+2][col+2] &&
+				g.Grid[row][col] == g.Grid[row+3][col+3] {
+				return g.Grid[row][col]
+			}
+		}
+	}
+
+	// Vérifier les diagonales montantes (/)
+	for row := 3; row < rows; row++ {
+		for col := 0; col <= cols-4; col++ {
+			if g.Grid[row][col] != "" &&
+				g.Grid[row][col] == g.Grid[row-1][col+1] &&
+				g.Grid[row][col] == g.Grid[row-2][col+2] &&
+				g.Grid[row][col] == g.Grid[row-3][col+3] {
+				return g.Grid[row][col]
+			}
+		}
+	}
+
+	return ""
+}
