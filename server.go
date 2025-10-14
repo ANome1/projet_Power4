@@ -139,7 +139,7 @@ func PlaceTokenHandler(w http.ResponseWriter, r *http.Request) {
 
 	log.Println("Token placed successfully")
 
-	// Vérifier la victoire
+	// Vérifier la victoire AVANT de changer de joueur
 	winner := currentGame.WinCond()
 	if winner != "" {
 		log.Printf("Winner detected: %s", winner)
@@ -153,7 +153,7 @@ func PlaceTokenHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	// Changer de joueur
+	// Changer de joueur SEULEMENT si personne n'a gagné
 	currentGame.SwitchTurn()
 	log.Printf("Next turn: %s", currentGame.Turn)
 
@@ -175,15 +175,15 @@ func WinHandler(w http.ResponseWriter, r *http.Request) {
 		log.Fatal(err)
 	}
 
-	// Déterminer le gagnant
+	// Le gagnant est le joueur actuel (celui qui vient de jouer)
 	var winner string
 	var winnerColor string
 	if currentGame.Turn == currentGame.Players.Player1 {
-		winner = currentGame.Players.Player2
-		winnerColor = "yellow"
-	} else {
 		winner = currentGame.Players.Player1
 		winnerColor = "red"
+	} else {
+		winner = currentGame.Players.Player2
+		winnerColor = "yellow"
 	}
 
 	data := struct {
