@@ -20,10 +20,16 @@ Ce projet est une implémentation web du célèbre jeu Power 4, permettant à de
 
 ## 🚀 Installation et lancement
 
+## En ligne
+Ouvrez votre navigateur à l'adresse :
+```
+https://power4.prettyflacko.fr/
+```
+
 ### Prérequis
 - Go 1.22.2 ou supérieur
 
-### Installation
+### Installation Locale
 
 1. Clonez le dépôt :
 ```bash
