@@ -33,6 +33,8 @@ body {
     color: var(--text);
     line-height: 1.45;
     min-height: 100vh;
+    display: flex;
+    flex-direction: column;
 }
 
 .container {
