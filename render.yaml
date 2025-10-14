@@ -1,0 +1,9 @@
+services:
+  - type: web
+    name: power4
+    env: go
+    buildCommand: go build -o server
+    startCommand: ./server
+    envVars:
+      - key: PORT
+        sync: false

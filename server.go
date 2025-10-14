@@ -3,6 +3,7 @@ package main
 import (
 	"log"
 	"net/http"
+	"os" // Ajouter cette ligne
 	power4 "power4/src"
 	"strconv"
 	"text/template"
@@ -12,6 +13,18 @@ import (
 var currentGame *power4.Game
 
 func Home(w http.ResponseWriter, r *http.Request) {
+	// Rediriger /index.html vers /
+	if r.URL.Path == "/index.html" {
+		http.Redirect(w, r, "/", http.StatusMovedPermanently)
+		return
+	}
+
+	// Vérifier que c'est bien la racine
+	if r.URL.Path != "/" {
+		http.NotFound(w, r)
+		return
+	}
+
 	template, err := template.ParseFiles("./index.html", "./template/header.html", "./template/footer.html")
 	if err != nil {
 		log.Fatal(err)
@@ -233,6 +246,12 @@ func main() {
 	fs := http.FileServer(http.Dir("static/"))
 	http.Handle("/static/", http.StripPrefix("/static/", fs))
 
-	log.Println("Server started on :8080")
-	http.ListenAndServe(":8080", nil)
+	// Récupérer le port depuis les variables d'environnement (Render)
+	port := os.Getenv("PORT")
+	if port == "" {
+		port = "8080"
+	}
+
+	log.Printf("Server started on :%s", port)
+	http.ListenAndServe(":"+port, nil)
 }
