@@ -33,12 +33,129 @@ body {
     color: var(--text);
     line-height: 1.45;
     min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    overflow-x: hidden;
+}
+
+/* Jetons décoratifs */
+body::before,
+body::after {
+    content: '';
+    position: fixed;
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    z-index: 1;
+    opacity: 0.6;
+}
+
+body::before {
+    background: radial-gradient(circle at 30% 30%, #ff4444, #cc0000);
+    box-shadow: 
+        inset -5px -5px 15px rgba(0, 0, 0, 0.3),
+        inset 5px 5px 15px rgba(255, 100, 100, 0.3),
+        0 0 30px rgba(255, 68, 68, 0.4);
+    top: 150px;
+    left: 50px;
+    animation: float-red 6s ease-in-out infinite;
+}
+
+body::after {
+    background: radial-gradient(circle at 30% 30%, #ffdd00, #ccaa00);
+    box-shadow: 
+        inset -5px -5px 15px rgba(0, 0, 0, 0.3),
+        inset 5px 5px 15px rgba(255, 255, 100, 0.3),
+        0 0 30px rgba(255, 221, 0, 0.4);
+    top: 150px;
+    right: 50px;
+    animation: float-yellow 6s ease-in-out infinite;
+}
+
+/* Jetons supplémentaires */
+.accueil::before,
+.accueil::after {
+    content: '';
+    position: fixed;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    z-index: 1;
+    opacity: 0.5;
+}
+
+.accueil::before {
+    background: radial-gradient(circle at 30% 30%, #ffdd00, #ccaa00);
+    box-shadow: 
+        inset -5px -5px 15px rgba(0, 0, 0, 0.3),
+        inset 5px 5px 15px rgba(255, 255, 100, 0.3),
+        0 0 25px rgba(255, 221, 0, 0.4);
+    bottom: 200px;
+    left: 30px;
+    animation: float-yellow-2 7s ease-in-out infinite;
+}
+
+.accueil::after {
+    background: radial-gradient(circle at 30% 30%, #ff4444, #cc0000);
+    box-shadow: 
+        inset -5px -5px 15px rgba(0, 0, 0, 0.3),
+        inset 5px 5px 15px rgba(255, 100, 100, 0.3),
+        0 0 25px rgba(255, 68, 68, 0.4);
+    bottom: 200px;
+    right: 30px;
+    animation: float-red-2 7s ease-in-out infinite;
+}
+
+/* Animations de flottement */
+@keyframes float-red {
+    0%, 100% {
+        transform: translateY(0) rotate(0deg);
+    }
+    50% {
+        transform: translateY(-30px) rotate(180deg);
+    }
+}
+
+@keyframes float-yellow {
+    0%, 100% {
+        transform: translateY(0) rotate(0deg);
+    }
+    50% {
+        transform: translateY(30px) rotate(-180deg);
+    }
+}
+
+@keyframes float-yellow-2 {
+    0%, 100% {
+        transform: translateY(0) rotate(0deg);
+    }
+    50% {
+        transform: translateY(-25px) rotate(180deg);
+    }
+}
+
+@keyframes float-red-2 {
+    0%, 100% {
+        transform: translateY(0) rotate(0deg);
+    }
+    50% {
+        transform: translateY(25px) rotate(-180deg);
+    }
+}
+
+/* Assurer que le contenu reste au-dessus */
+.site-header,
+.accueil,
+.site-footer {
+    position: relative;
+    z-index: 10;
 }
 
 .container {
     max-width: var(--container);
     margin: 0 auto;
-    padding: 24px;
+    padding: 16px 24px;
 }
 
 /* Header */
@@ -53,6 +170,7 @@ body {
     align-items: center;
     justify-content: space-between;
     gap: 16px;
+    padding: 12px 24px;
 }
 
 .header-left {
@@ -68,7 +186,7 @@ body {
 }
 
 .brand {
-    font-size: 1.25rem;
+    font-size: 1.1rem;
     margin: 0;
     color: #ffffff;
 }
@@ -90,9 +208,10 @@ body {
     color: rgba(255, 255, 255, 0.95);
     text-decoration: none;
     font-weight: 600;
-    padding: 8px 12px;
+    padding: 6px 12px;
     border-radius: 8px;
     transition: all 0.2s ease;
+    font-size: 0.95rem;
 }
 
 .main-nav a:focus,
@@ -130,8 +249,8 @@ section {
 
 /* Logo */
 .logo {
-    width: 56px;
-    height: 56px;
+    width: 40px;
+    height: 40px;
     border-radius: 0;
     object-fit: contain;
     border: none;
@@ -144,6 +263,7 @@ section {
 .accueil {
     text-align: center;
     margin: 32px 0;
+    flex: 1;
 }
 
 .accueil h1 {
@@ -325,6 +445,8 @@ section {
     justify-content: space-between;
     align-items: center;
     gap: 12px;
+    padding: 12px 24px;
+    font-size: 0.9rem;
 }
 
 .social a {
@@ -349,8 +471,8 @@ section {
 }
 
 .footer-logo {
-    width: 24px;
-    height: 24px;
+    width: 20px;
+    height: 20px;
     object-fit: contain;
 }
 
@@ -361,8 +483,16 @@ section {
     }
     
     .footer-logo {
-        width: 20px;
-        height: 20px;
+        width: 18px;
+        height: 18px;
+    }
+    
+    /* Masquer les jetons sur mobile */
+    body::before,
+    body::after,
+    .accueil::before,
+    .accueil::after {
+        display: none;
     }
 }
 
@@ -423,6 +553,7 @@ h1 {
         flex-direction: column;
         align-items: flex-start;
         gap: 12px;
+        padding: 10px 16px;
     }
     
     .header-left {
@@ -432,7 +563,7 @@ h1 {
     
     .main-nav {
         width: 100%;
-        margin-top: 12px;
+        margin-top: 8px;
     }
     
     .main-nav ul {
@@ -441,12 +572,12 @@ h1 {
     }
     
     .logo {
-        width: 44px;
-        height: 44px;
+        width: 36px;
+        height: 36px;
     }
     
     .brand {
-        font-size: 1rem;
+        font-size: 0.95rem;
     }
     
     #game-board {
@@ -469,6 +600,7 @@ h1 {
         flex-direction: column;
         align-items: flex-start;
         gap: 8px;
+        padding: 12px 16px;
     }
     
     .difficulty-options {
