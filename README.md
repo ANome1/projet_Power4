@@ -1,6 +1,6 @@
 # Power 4 - Projet Web
 
-Un jeu de Power 4 (Puissance 4) interactif développé en Go avec une interface web moderne et responsive.
+Un jeu de Power 4 (Puissance 4) interactif développé en Go avec une interface web moderne.
 
 ## 📋 Description
 
@@ -20,16 +20,18 @@ Ce projet est une implémentation web du célèbre jeu Power 4, permettant à de
 
 ## 🚀 Installation et lancement
 
-## En ligne
-Ouvrez votre navigateur à l'adresse :
+### En ligne
+- Ouvrez votre navigateur à l'adresse :
 ```
 https://power4.prettyflacko.fr/
 ```
 
-### Prérequis
-- Go 1.22.2 ou supérieur
 
 ### Installation Locale
+
+## Prérequis
+- Go 1.22.2 ou supérieur
+
 
 1. Clonez le dépôt :
 ```bash
