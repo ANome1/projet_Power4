@@ -13,23 +13,23 @@
         <h1>Bienvenue sur Power 4</h1>
         <div class="instructions">
             <h2>Instructions</h2>
-                <p>Pour jouer à Power 4, alignez 4 jetons de la même couleur pour gagner.</p>
+            <p>Pour jouer à Power 4, alignez 4 jetons de la même couleur pour gagner.</p>
+        </div>
+        <section class="player-input">
+        <h2>Entrez les noms des joueurs</h2>
+        </section>
+        <div class="player-form">
+            <form action="/normal", action="/easy", action="/hard" method="post">
+                <label for="player1">Nom du Joueur 1 (Rouge) :</label>
+                <input type="text" id="player1" name="player1" required>
+                <br>
+                <label for="player2">Nom du Joueur 2 (Jaune) :</label>
+                <input type="text" id="player2" name="player2" required>
+                <br>
+                <button type="submit">Commencer le Jeu</button>
+            </form>
         </div>
     </section>
-    <section class="player-names">
-        <h2>Entrez les noms des joueurs</h2>
-    </section>
-    <div class="player-form">
-        <form action="/normal", action="/easy", action="/hard" method="post">
-            <label for="player1">Nom du Joueur 1 (Rouge) :</label>
-            <input type="text" id="player1" name="player1" required>
-            <br>
-            <label for="player2">Nom du Joueur 2 (Jaune) :</label>
-            <input type="text" id="player2" name="player2" required>
-            <br>
-            <button type="submit">Commencer le Jeu</button>
-        </form>
-    </div>
 
     {{template "footer"}}
 </body>
