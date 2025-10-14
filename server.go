@@ -132,13 +132,26 @@ func PlaceTokenHandler(w http.ResponseWriter, r *http.Request) {
 
 	if !success {
 		log.Println("ERROR: Column full or invalid")
-		// Rediriger quand même vers la page du jeu
 		redirectPath := "/" + currentGame.Players.Difficulty
 		http.Redirect(w, r, redirectPath, http.StatusSeeOther)
 		return
 	}
 
 	log.Println("Token placed successfully")
+
+	// Vérifier la victoire
+	winner := currentGame.WinCond()
+	if winner != "" {
+		log.Printf("Winner detected: %s", winner)
+		// Mettre à jour les scores
+		if winner == "red" {
+			currentGame.Players.Player1_Score++
+		} else {
+			currentGame.Players.Player2_Score++
+		}
+		http.Redirect(w, r, "/win", http.StatusSeeOther)
+		return
+	}
 
 	// Changer de joueur
 	currentGame.SwitchTurn()
@@ -147,6 +160,60 @@ func PlaceTokenHandler(w http.ResponseWriter, r *http.Request) {
 	// Rediriger vers la page de jeu appropriée
 	redirectPath := "/" + currentGame.Players.Difficulty
 	log.Printf("Redirecting to %s", redirectPath)
+	http.Redirect(w, r, redirectPath, http.StatusSeeOther)
+}
+
+// WinHandler affiche la page de victoire
+func WinHandler(w http.ResponseWriter, r *http.Request) {
+	if currentGame == nil {
+		http.Redirect(w, r, "/", http.StatusSeeOther)
+		return
+	}
+
+	tmpl, err := template.ParseFiles("./page/win.html", "./template/header.html", "./template/footer.html")
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	// Déterminer le gagnant
+	var winner string
+	var winnerColor string
+	if currentGame.Turn == currentGame.Players.Player1 {
+		winner = currentGame.Players.Player2
+		winnerColor = "yellow"
+	} else {
+		winner = currentGame.Players.Player1
+		winnerColor = "red"
+	}
+
+	data := struct {
+		Winner        string
+		WinnerColor   string
+		Player1       string
+		Player2       string
+		Player1_Score int
+		Player2_Score int
+		Difficulty    string
+	}{
+		Winner:        winner,
+		WinnerColor:   winnerColor,
+		Player1:       currentGame.Players.Player1,
+		Player2:       currentGame.Players.Player2,
+		Player1_Score: currentGame.Players.Player1_Score,
+		Player2_Score: currentGame.Players.Player2_Score,
+		Difficulty:    currentGame.Players.Difficulty,
+	}
+
+	tmpl.Execute(w, data)
+}
+
+// ReplayHandler relance une partie
+func ReplayHandler(w http.ResponseWriter, r *http.Request) {
+	if currentGame != nil {
+		// Garder les joueurs et les scores
+		currentGame = power4.NewGame(&currentGame.Players)
+	}
+	redirectPath := "/" + currentGame.Players.Difficulty
 	http.Redirect(w, r, redirectPath, http.StatusSeeOther)
 }
 
@@ -167,6 +234,8 @@ func main() {
 		Player(w, r, &player)
 	})
 	http.HandleFunc("/place-token", PlaceTokenHandler)
+	http.HandleFunc("/win", WinHandler)
+	http.HandleFunc("/replay", ReplayHandler)
 
 	fs := http.FileServer(http.Dir("static/"))
 	http.Handle("/static/", http.StripPrefix("/static/", fs))

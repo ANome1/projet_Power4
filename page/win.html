@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Victoire - Power 4</title>
+    <link rel="stylesheet" href="/static/win.css">
+    <link rel="stylesheet" href="/static/style.css">
+    <link rel="icon" type="image/png" href="/static/ressources/logoWhite.ico">
+</head>
+<body>
+    {{template "header" .}}
+    
+    <div class="win-container">
+        <div class="win-content">
+            <h1 class="win-title {{.WinnerColor}}">🎉 Victoire ! 🎉</h1>
+            <p class="winner-name">{{.Winner}} a gagné !</p>
+            
+            <div class="scores">
+                <div class="score-box red">
+                    <h3>{{.Player1}}</h3>
+                    <p class="score">{{.Player1_Score}}</p>
+                </div>
+                <div class="score-separator">-</div>
+                <div class="score-box yellow">
+                    <h3>{{.Player2}}</h3>
+                    <p class="score">{{.Player2_Score}}</p>
+                </div>
+            </div>
+
+            <div class="actions">
+                <form action="/replay" method="GET">
+                    <button type="submit" class="btn-replay">Rejouer</button>
+                </form>
+                <a href="/" class="btn-home">Retour à l'accueil</a>
+            </div>
+        </div>
+    </div>
+
+    {{template "footer" .}}
+</body>
+</html>
