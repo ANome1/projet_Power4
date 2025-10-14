@@ -47,14 +47,14 @@ func NewGame(player *Players) *Game {
 	}
 }
 
-// PlaceToken place un jeton dans la colonne spécifiée
+// place un jeton dans la colonne spécifiée
 func (g *Game) PlaceToken(col int, color string) bool {
 	// Vérifier que la colonne est valide
 	if col < 0 || col >= len(g.Grid[0]) {
 		return false
 	}
 
-	// Trouver la première case vide en partant du bas
+	// la première case vide en partant du bas
 	for row := len(g.Grid) - 1; row >= 0; row-- {
 		if g.Grid[row][col] == "" {
 			g.Grid[row][col] = color
@@ -62,11 +62,9 @@ func (g *Game) PlaceToken(col int, color string) bool {
 		}
 	}
 
-	// Colonne pleine
 	return false
 }
 
-// GetCurrentPlayerColor retourne la couleur du joueur actuel
 func (g *Game) GetCurrentPlayerColor() string {
 	if g.Turn == g.Players.Player1 {
 		return "red"
@@ -74,7 +72,6 @@ func (g *Game) GetCurrentPlayerColor() string {
 	return "yellow"
 }
 
-// SwitchTurn change de joueur
 func (g *Game) SwitchTurn() {
 	if g.Turn == g.Players.Player1 {
 		g.Turn = g.Players.Player2
@@ -83,13 +80,11 @@ func (g *Game) SwitchTurn() {
 	}
 }
 
-// WinCond vérifie si un joueur a gagné
-// Retourne la couleur du gagnant ("red", "yellow") ou "" si pas de gagnant
 func (g *Game) WinCond() string {
 	rows := len(g.Grid)
 	cols := len(g.Grid[0])
 
-	// Vérifier les lignes horizontales
+	// Vérifier les lignes
 	for row := 0; row < rows; row++ {
 		for col := 0; col <= cols-4; col++ {
 			if g.Grid[row][col] != "" &&
@@ -101,7 +96,7 @@ func (g *Game) WinCond() string {
 		}
 	}
 
-	// Vérifier les colonnes verticales
+	// Vérifier les colonnes
 	for col := 0; col < cols; col++ {
 		for row := 0; row <= rows-4; row++ {
 			if g.Grid[row][col] != "" &&
@@ -113,7 +108,7 @@ func (g *Game) WinCond() string {
 		}
 	}
 
-	// Vérifier les diagonales descendantes (\)
+	// Vérifier les diagonales descendantes
 	for row := 0; row <= rows-4; row++ {
 		for col := 0; col <= cols-4; col++ {
 			if g.Grid[row][col] != "" &&
@@ -125,7 +120,7 @@ func (g *Game) WinCond() string {
 		}
 	}
 
-	// Vérifier les diagonales montantes (/)
+	// Vérifier les diagonales montantes
 	for row := 3; row < rows; row++ {
 		for col := 0; col <= cols-4; col++ {
 			if g.Grid[row][col] != "" &&

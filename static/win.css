@@ -7,7 +7,7 @@
 }
 
 .win-content {
-    background: rgba(255, 255, 255, 0.95);
+    background: rgba(255, 255, 255, 0.05);
     padding: 3rem;
     border-radius: 20px;
     box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
@@ -54,7 +54,7 @@
 
 .winner-name {
     font-size: 1.8rem;
-    color: #2c3e50;
+    color: white;
     margin-bottom: 2rem;
     font-weight: 600;
 }

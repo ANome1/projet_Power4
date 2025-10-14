@@ -341,6 +341,31 @@ section {
     background: rgba(139, 92, 246, 0.1);
 }
 
+.footer-content {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    justify-content: center;
+}
+
+.footer-logo {
+    width: 24px;
+    height: 24px;
+    object-fit: contain;
+}
+
+@media (max-width: 768px) {
+    .footer-content {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+    
+    .footer-logo {
+        width: 20px;
+        height: 20px;
+    }
+}
+
 /* Titres */
 h1, h2, .page-title {
     text-align: center;

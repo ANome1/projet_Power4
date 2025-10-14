@@ -44,7 +44,6 @@ func Player(w http.ResponseWriter, r *http.Request, player *power4.Players) {
 		log.Fatal(err)
 	}
 
-	// Passer les données du jeu au template
 	if currentGame != nil {
 		data := struct {
 			Player1       string
@@ -72,10 +71,10 @@ func Difficulty(w http.ResponseWriter, r *http.Request, player *power4.Players) 
 		level := r.FormValue("level")
 		log.Printf("Level received: '%s'", level)
 
-		// Set the difficulty
+		//récupérer la difficulté choisie
 		player.Difficulty = level
 
-		// Create a new game with the players
+		// Créer une nouvelle partie avec les joueurs et la difficulté
 		currentGame = power4.NewGame(player)
 
 		log.Printf("Game created: %+v", currentGame)
@@ -93,7 +92,6 @@ func Difficulty(w http.ResponseWriter, r *http.Request, player *power4.Players) 
 		return
 	}
 
-	// Afficher la page de sélection de difficulté
 	template, err := template.ParseFiles("./page/difficulty.html", "./template/header.html", "./template/footer.html")
 	if err != nil {
 		log.Fatal(err)
@@ -101,7 +99,7 @@ func Difficulty(w http.ResponseWriter, r *http.Request, player *power4.Players) 
 	template.Execute(w, nil)
 }
 
-// PlaceTokenHandler gère le placement des jetons
+// le placement des jetons
 func PlaceTokenHandler(w http.ResponseWriter, r *http.Request) {
 	if r.Method != "POST" {
 		http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
@@ -124,7 +122,6 @@ func PlaceTokenHandler(w http.ResponseWriter, r *http.Request) {
 
 	log.Printf("Placing token in column %d", col)
 
-	// Placer le jeton
 	color := currentGame.GetCurrentPlayerColor()
 	log.Printf("Current player: %s, color: %s", currentGame.Turn, color)
 
@@ -143,7 +140,6 @@ func PlaceTokenHandler(w http.ResponseWriter, r *http.Request) {
 	winner := currentGame.WinCond()
 	if winner != "" {
 		log.Printf("Winner detected: %s", winner)
-		// Mettre à jour les scores
 		if winner == "red" {
 			currentGame.Players.Player1_Score++
 		} else {
@@ -157,13 +153,12 @@ func PlaceTokenHandler(w http.ResponseWriter, r *http.Request) {
 	currentGame.SwitchTurn()
 	log.Printf("Next turn: %s", currentGame.Turn)
 
-	// Rediriger vers la page de jeu appropriée
 	redirectPath := "/" + currentGame.Players.Difficulty
 	log.Printf("Redirecting to %s", redirectPath)
 	http.Redirect(w, r, redirectPath, http.StatusSeeOther)
 }
 
-// WinHandler affiche la page de victoire
+// la page de victoire
 func WinHandler(w http.ResponseWriter, r *http.Request) {
 	if currentGame == nil {
 		http.Redirect(w, r, "/", http.StatusSeeOther)
@@ -175,7 +170,6 @@ func WinHandler(w http.ResponseWriter, r *http.Request) {
 		log.Fatal(err)
 	}
 
-	// Le gagnant est le joueur actuel (celui qui vient de jouer)
 	var winner string
 	var winnerColor string
 	if currentGame.Turn == currentGame.Players.Player1 {
@@ -207,7 +201,6 @@ func WinHandler(w http.ResponseWriter, r *http.Request) {
 	tmpl.Execute(w, data)
 }
 
-// ReplayHandler relance une partie
 func ReplayHandler(w http.ResponseWriter, r *http.Request) {
 	if currentGame != nil {
 		// Garder les joueurs et les scores

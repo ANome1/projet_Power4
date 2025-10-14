@@ -1,11 +1,18 @@
 {{define "footer"}}
 <link rel="stylesheet" href="static/style.css">
 <footer class="site-footer">
-        <div class="container footer-inner">
+    <div class="container footer-inner">
+        <div class="footer-content">
+            <img src="/static/ressources/logoWhite.ico" alt="Power 4 Logo" class="footer-logo">
             <p>&copy; <span id="year"></span> Power 4 - Pretty Flacko. Tous droits réservés.</p>
-            <nav aria-label="Réseaux sociaux" class="social">
-                <a href="https://github.com/ANome1" aria-label="GitHub">GitHub</a>
-            </nav>
         </div>
-    </footer>
+        <nav aria-label="Réseaux sociaux" class="social">
+            <a href="https://github.com/ANome1" aria-label="GitHub">GitHub</a>
+        </nav>
+    </div>
+</footer>
+
+<script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+</script>
 {{end}}
