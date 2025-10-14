@@ -7,22 +7,23 @@
 }
 
 .win-content {
-    background: rgba(255, 255, 255, 0.05);
+    background: rgba(255, 255, 255, 0.08);
     padding: 3rem;
     border-radius: 20px;
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
     text-align: center;
     max-width: 600px;
     width: 100%;
-    animation: slideIn 0.5s ease-out;
-    backdrop-filter: blur(10px);
+    animation: slideIn 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+    backdrop-filter: blur(15px);
+    border: 1px solid rgba(139, 92, 246, 0.2);
     position: relative;
 }
 
 @keyframes slideIn {
     from {
         opacity: 0;
-        transform: translateY(-30px) scale(0.9);
+        transform: translateY(-50px) scale(0.85);
     }
     to {
         opacity: 1;
@@ -33,20 +34,26 @@
 .win-title {
     font-size: 3rem;
     margin-bottom: 1rem;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+    text-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
     font-weight: 800;
     letter-spacing: 2px;
+    animation: titlePulse 2s ease-in-out infinite;
+}
+
+@keyframes titlePulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.03); }
 }
 
 .win-title.red {
-    background: linear-gradient(135deg, #e74c3c, #c0392b);
+    background: linear-gradient(135deg, #ff6b6b, #e74c3c, #c0392b);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
 }
 
 .win-title.yellow {
-    background: linear-gradient(135deg, #f39c12, #e67e22);
+    background: linear-gradient(135deg, #ffe66d, #f39c12, #e67e22);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -57,6 +64,7 @@
     color: white;
     margin-bottom: 2rem;
     font-weight: 600;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
 }
 
 .scores {
@@ -71,12 +79,14 @@
     padding: 2rem 1.5rem;
     border-radius: 15px;
     min-width: 150px;
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
-    transition: transform 0.3s ease;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.25);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .score-box:hover {
-    transform: translateY(-5px);
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.35);
 }
 
 .score-box.red {
@@ -94,18 +104,20 @@
     font-size: 1.2rem;
     font-weight: 600;
     text-transform: uppercase;
-    letter-spacing: 1px;
+    letter-spacing: 1.5px;
+    opacity: 0.95;
 }
 
 .score {
     font-size: 2.5rem;
     font-weight: bold;
     margin: 0;
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
 }
 
 .score-separator {
     font-size: 2rem;
-    color: #7f8c8d;
+    color: #95a5a6;
     font-weight: bold;
 }
 
@@ -122,14 +134,30 @@
     border: none;
     border-radius: 15px;
     cursor: pointer;
-    transition: all 0.3s ease;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     text-decoration: none;
     display: inline-block;
     font-weight: 700;
     text-transform: none;
     letter-spacing: 0.5px;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
     color: white;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    position: relative;
+    overflow: hidden;
+}
+
+.btn-replay::before, .btn-home::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transform: translateX(-100%);
+    transition: transform 0.6s;
+}
+
+.btn-replay:hover::before, .btn-home:hover::before {
+    transform: translateX(100%);
 }
 
 .btn-replay {
@@ -138,21 +166,20 @@
 
 .btn-replay:hover {
     background: linear-gradient(90deg, #db2777, #7c3aed);
-    transform: translateY(-2px);
-    box-shadow: 0 12px 25px rgba(236, 72, 153, 0.4);
+    transform: translateY(-3px);
+    box-shadow: 0 15px 30px rgba(236, 72, 153, 0.5);
 }
 
 .btn-home {
-    background: linear-gradient(90deg, #ec4899, #8b5cf6);
+    background: linear-gradient(90deg, #8b5cf6, #6366f1);
 }
 
 .btn-home:hover {
-    background: linear-gradient(90deg, #db2777, #7c3aed);
-    transform: translateY(-2px);
-    box-shadow: 0 12px 25px rgba(139, 92, 246, 0.4);
+    background: linear-gradient(90deg, #7c3aed, #4f46e5);
+    transform: translateY(-3px);
+    box-shadow: 0 15px 30px rgba(139, 92, 246, 0.5);
 }
 
-/* Animation des confettis */
 .win-content::before {
     content: '🎊';
     position: absolute;
@@ -160,7 +187,7 @@
     left: 50%;
     transform: translateX(-50%);
     font-size: 3rem;
-    animation: bounce 1s infinite;
+    animation: bounce 1.2s ease-in-out infinite;
 }
 
 @keyframes bounce {
@@ -168,7 +195,7 @@
         transform: translateX(-50%) translateY(0);
     }
     50% {
-        transform: translateX(-50%) translateY(-20px);
+        transform: translateX(-50%) translateY(-25px);
     }
 }
 
@@ -178,7 +205,7 @@
     }
 
     .win-content {
-        padding: 2rem;
+        padding: 2rem 1.5rem;
     }
 
     .win-title {
@@ -201,5 +228,10 @@
     .score-box {
         width: 100%;
         max-width: 300px;
+    }
+    
+    .btn-replay, .btn-home {
+        font-size: 1.1rem;
+        padding: 1rem 1.5rem;
     }
 }
