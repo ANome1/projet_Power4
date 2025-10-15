@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="static/ressources/logoWhite.ico">
+    <title>Projet Power4 - Gravity</title>
+    <link rel="stylesheet" href="static/easy.css">
+</head>
+<body>
+    {{template "header"}}
+    
+    <h1>Gravity</h1>
+    
+    <div class="player-names">
+        <p>Joueur 1 (Rouge) : {{.Player1}}</p>
+        <p><strong>Tour de: {{.CurrentTurn}}</strong></p>
+        <p>Joueur 2 (Jaune) : {{.Player2}}</p>
+    </div>
+
+    <div class="change-difficulty">
+        <form action="/difficulty" method="get">
+            <button type="submit" class="change-difficulty-button">Changer la difficulté</button>
+        </form>
+    </div>
+    
+    
+    <div class="game-container">
+        <div id="game-board" class="grid-6x7">
+            {{range $rowIndex, $row := .Grid}}
+                {{range $colIndex, $cell := $row}}
+                    <form action="/place-token" method="POST" style="display: inline;">
+                        <input type="hidden" name="col" value="{{$colIndex}}">
+                        <button type="submit" class="cell {{if eq $cell "red"}}red{{else if eq $cell "yellow"}}yellow{{end}}" 
+                                data-row="{{$rowIndex}}" 
+                                data-col="{{$colIndex}}">
+                        </button>
+                    </form>
+                {{end}}
+            {{end}}
+        </div>
+    </div>
+
+    {{template "footer"}}
+</body>
+</html>
