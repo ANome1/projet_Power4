@@ -36,7 +36,7 @@ func Player(w http.ResponseWriter, r *http.Request, player *power4.Players) {
 	case "/hard":
 		templateFile = "./page/hard.html"
 	case "/gravity":
-		templateFile = "./page/gravity/html"
+		templateFile = "./page/gravity.html"
 	default:
 		templateFile = "./page/normal.html"
 	}

@@ -143,7 +143,7 @@ func (g *Game) ReverseGravity() {
 	// Example: reverse gravity every 5 turns (assuming you have a turn counter)
 	// You need to add a TurnCount field to Game struct if you want this logic.
 	// For now, just leave this function empty or implement your own logic.
-	if g.TurnCount%5 == 0 {
+	if g.TurnCount != 0 && g.TurnCount%5 == 0 {
 		for col := 0; col < len(g.Grid[0]); col++ {
 			// Collect all tokens in the column
 			tokens := []string{}
