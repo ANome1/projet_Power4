@@ -9,9 +9,10 @@ type Players struct {
 }
 
 type Game struct {
-	Turn    string
-	Grid    [][]string
-	Players Players
+	Turn      string
+	Grid      [][]string
+	Players   Players
+	TurnCount int
 }
 
 func NewGame(player *Players) *Game {
@@ -27,6 +28,9 @@ func NewGame(player *Players) *Game {
 	case "hard":
 		row = 7
 		col = 8
+	case "gravity":
+		row = 6
+		col = 7
 	default:
 		row = 6
 		col = 7
@@ -74,6 +78,7 @@ func (g *Game) GetCurrentPlayerColor() string {
 
 func (g *Game) SwitchTurn() {
 	if g.Turn == g.Players.Player1 {
+		g.TurnCount++
 		g.Turn = g.Players.Player2
 	} else {
 		g.Turn = g.Players.Player1
@@ -133,4 +138,25 @@ func (g *Game) WinCond() string {
 	}
 
 	return ""
+}
+func (g *Game) ReverseGravity() {
+	// Example: reverse gravity every 5 turns (assuming you have a turn counter)
+	// You need to add a TurnCount field to Game struct if you want this logic.
+	// For now, just leave this function empty or implement your own logic.
+	if g.TurnCount != 0 && g.TurnCount%5 == 0 {
+		for col := 0; col < len(g.Grid[0]); col++ {
+			// Collect all tokens in the column
+			tokens := []string{}
+			for row := 0; row < len(g.Grid); row++ {
+				if g.Grid[row][col] != "" {
+					tokens = append(tokens, g.Grid[row][col])
+					g.Grid[row][col] = ""
+				}
+			}
+			// Place tokens at the top of the column
+			for i := 0; i < len(tokens); i++ {
+				g.Grid[i][col] = tokens[i]
+			}
+		}
+	}
 }
