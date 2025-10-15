@@ -89,7 +89,7 @@ func Difficulty(w http.ResponseWriter, r *http.Request, player *power4.Players) 
 		case "hard":
 			http.Redirect(w, r, "/hard", http.StatusSeeOther)
 		case "gravity":
-			http.Redirect(w, r, "/gravity,", http.StatusSeeOther)
+			http.Redirect(w, r, "/gravity", http.StatusSeeOther)
 		default:
 			http.Redirect(w, r, "/normal", http.StatusSeeOther)
 		}
@@ -139,6 +139,11 @@ func PlaceTokenHandler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	log.Println("Token placed successfully")
+
+	if currentGame.Players.Difficulty == "gravity" {
+		currentGame.ReverseGravity()
+		log.Printf("Gravity reversed at turn %d", currentGame.TurnCount)
+	}
 
 	// Vérifier la victoire AVANT de changer de joueur
 	winner := currentGame.WinCond()
@@ -228,6 +233,9 @@ func main() {
 		Player(w, r, &player)
 	})
 	http.HandleFunc("/hard", func(w http.ResponseWriter, r *http.Request) {
+		Player(w, r, &player)
+	})
+	http.HandleFunc("/gravity", func(w http.ResponseWriter, r *http.Request) {
 		Player(w, r, &player)
 	})
 	http.HandleFunc("/place-token", PlaceTokenHandler)
