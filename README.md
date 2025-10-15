@@ -1,6 +1,6 @@
 # Power 4 - Projet Web
 
-Un jeu de Power 4 (Puissance 4) interactif développé en Go avec une interface web moderne.
+Un jeu de Power 4 (Puissance 4/Connect 4) interactif développé en Go avec une interface web moderne.
 
 ## 📋 Description
 
