@@ -35,6 +35,8 @@ func Player(w http.ResponseWriter, r *http.Request, player *power4.Players) {
 		templateFile = "./page/normal.html"
 	case "/hard":
 		templateFile = "./page/hard.html"
+	case "/gravity":
+		templateFile = "./page/gravity/html"
 	default:
 		templateFile = "./page/normal.html"
 	}
@@ -86,6 +88,8 @@ func Difficulty(w http.ResponseWriter, r *http.Request, player *power4.Players) 
 			http.Redirect(w, r, "/normal", http.StatusSeeOther)
 		case "hard":
 			http.Redirect(w, r, "/hard", http.StatusSeeOther)
+		case "gravity":
+			http.Redirect(w, r, "/gravity,", http.StatusSeeOther)
 		default:
 			http.Redirect(w, r, "/normal", http.StatusSeeOther)
 		}
