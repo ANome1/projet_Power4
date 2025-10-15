@@ -29,7 +29,7 @@ https://power4.prettyflacko.fr/
 
 ### Installation Locale
 
-## Prérequis
+#### 🚩 Prérequis
 - Go 1.22.2 ou supérieur
 
 
